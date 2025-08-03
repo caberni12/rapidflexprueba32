@@ -1207,3 +1207,69 @@ header { position: relative; }
   .partners-grid { grid-template-columns: repeat(2, minmax(100px, 1fr)) !important; gap: 12px !important; }
   .partners-grid img { max-width: 110px !important; }
 }
+/* ===== PATCH MÓVIL V2 (forzado) ===== */
+@media (max-width: 1024px) {
+  /* 1) Anula posiciones/transform que causan solape */
+  .hero-text, .contenido-telefono, .contenido-seguridad,
+  .seccion-telefono, .seccion-seguridad, .seccion-cajas {
+    position: static !important;
+    transform: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  /* 2) Estructura columnas → pila vertical centrada */
+  .seccion-telefono, .seccion-seguridad, .seccion-cajas {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+  }
+
+  /* 3) Contenedores de imagen sin offsets */
+  .imagen-telefono, .imagen-cajas, .imagen-cajas2 {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  /* 4) Imágenes grandes, centradas, sin márgenes/zoom/transform */
+  .imagen-telefono img, .imagen-cajas img, .imagen-cajas2 img {
+    display: block !important;
+    width: clamp(260px, 92vw, 720px) !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+    transform: none !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    zoom: unset !important; /* por si hay zoom aplicado */
+  }
+
+  /* 5) Evita cortes y solapes por alturas fijas o z-index altos */
+  header, .hero, section, .row, .container {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  * { z-index: auto !important; }
+}
+
+/* Móvil pequeño (≤480px): ajuste de tamaño y texto justificado */
+@media (max-width: 480px) {
+  .imagen-telefono img, .imagen-cajas img, .imagen-cajas2 img {
+    width: min(360px, 100%) !important;
+  }
+  .contenido-telefono p, .contenido-seguridad p {
+    text-align: justify !important;
+  }
+}
+
+/* Opcional (DEBUG): ver cajas para detectar qué se monta
+@media (max-width: 480px) {
+  html.debug * { outline: 1px dashed rgba(255,0,0,.25); }
+}
+*/
